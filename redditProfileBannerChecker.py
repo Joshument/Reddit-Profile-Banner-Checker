@@ -1,4 +1,3 @@
-from typing import Text
 import discord
 import requests
 import sqlite3
@@ -57,16 +56,10 @@ async def check():
             conn.commit()
             await channel.send("@everyone profile banner of {} has changed! Current profile banner: {}".format(user, bannericon))
 
-    c.execute("SELECT * FROM users")
-    print(c.fetchall())
-
 class MyClient(discord.Client):
     async def on_ready(self):
         print("bot is running!")
         check.start()
-
-    async def on_message(self, message):
-        print('Message from {0.author}: {0.content}'.format(message))
 
 client = MyClient()
 client.run('TOKEN')
