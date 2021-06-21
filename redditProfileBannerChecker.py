@@ -4,9 +4,9 @@ import requests
 import sqlite3
 from discord.ext import tasks
 
-responseChannel = 856337987016065048
+responseChannel = 856517150306861079
 
-conn = sqlite3.connect(r"C:\alexmaestroarg_profiledata.db")
+conn = sqlite3.connect("alexmaestroarg_profiledata.db")
 c = conn.cursor()
 
 recordedicon = ""
@@ -15,13 +15,13 @@ recordedbanner = ""
 accounts = ["AlexMaestro", "AveryMasters", "Fac50Log11013"]
 
 c.execute("""CREATE TABLE IF NOT EXISTS users (
-    user text, 
+    user text UNIQUE, 
     profile_icon text, 
     profile_banner text
     )""")
 
 for user in accounts:
-    c.execute("INSERT INTO users VALUES ('{}', 'dummy', 'dummy')".format(user))
+    c.execute("INSERT OR IGNORE INTO users VALUES ('{}', 'dummy', 'dummy')".format(user))
 
 c.execute("SELECT * FROM users")
 
@@ -65,5 +65,8 @@ class MyClient(discord.Client):
         print("bot is running!")
         check.start()
 
+    async def on_message(self, message):
+        print('Message from {0.author}: {0.content}'.format(message))
+
 client = MyClient()
-client.run('TOKEN HERE')
+client.run('TOKEN')
