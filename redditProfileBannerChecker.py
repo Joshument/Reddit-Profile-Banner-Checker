@@ -8,9 +8,6 @@ responseChannel = 856517150306861079
 conn = sqlite3.connect("alexmaestroarg_profiledata.db")
 c = conn.cursor()
 
-recordedicon = ""
-recordedbanner = ""
-
 accounts = ["AlexMaestro", "AveryMasters", "Fac50Log11013"]
 
 c.execute("""CREATE TABLE IF NOT EXISTS users (
